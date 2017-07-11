@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { Route, IndexRoute, hashHistory, Router } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
-import App from './container/App';
+import App from './app';
 
-import {reducer} from './reducer'
+import reducer from './reducer/index.js'
 // import AllMemosRoute from './routes/AllMemosRoute';
 // import TodoRoute from './routes/TodoRoute';
 // import DoingRoute from './routes/DoingRoute';
