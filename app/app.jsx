@@ -7,39 +7,23 @@ import { Row, Col } from 'antd';
 import { addToDo } from './action/action.js';
 import Item from './component/item';
 import Ipt from './component/ipt';
-import Header from './component/Header';
+
 // import './App.less';
 
 
 class App extends Component{
     constructor(props){
         super(props);
-
-        this.state={
-            val:''
-        }
     }
    
 
     render(){
-        
-       
-
-        return(<Row justify="center" align=" middle">
-            <Col span={12} offset={6} >
-                <Header/>
-                {this.props.children}
-                <Ipt/>
-            </Col>
-            
-            
-        </Row>)
+        return(
+            <div className='app'>{this.props.children}</div>
+        )
     }
 }
 
-const mapStateToProps=(state)=>{
-   
-    return {todoList:state.todoList}
-}
 
-export default connect(mapStateToProps)(App);
+
+export default connect()(App);
