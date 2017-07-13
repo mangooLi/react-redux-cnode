@@ -6,7 +6,9 @@ import { createStore } from 'redux'
 import App from './app';
 
 import reducer from './reducer/index.js'
-// import AllMemosRoute from './routes/AllMemosRoute';
+import AllPage from './Pages/AllPage';
+import TodoPage from './Pages/TodoPage';
+import DoingPage from './Pages/DoingPage';
 // import TodoRoute from './routes/TodoRoute';
 // import DoingRoute from './routes/DoingRoute';
 // import DoneRoute from './routes/DoneRoute';
@@ -21,10 +23,10 @@ ReactDOM.render(
                 path="/"
                 component={App}
             >
-                {/*<IndexRoute component={AllMemosRoute} />
-                <Route path="/todo" component={TodoRoute} />
-                <Route path="/doing" component={DoingRoute} />
-                <Route path="/done" component={DoneRoute} />*/}
+                <IndexRoute component={AllPage} />
+                 <Route path="/todo" component={TodoPage} />
+                 <Route path="/doing" component={DoingPage} /> 
+                {/* <Route path="/done" component={DonePage} />  */}
             </Route>
         </Router>
     </Provider>,
