@@ -6,7 +6,8 @@ import { createStore } from 'redux'
 import App from './app';
 import routes from './routes'
 import reducer from './reducer/index.js'
-
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 import './main.less';
 
