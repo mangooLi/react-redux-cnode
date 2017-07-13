@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 //ui组件
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+import FlipMove from 'react-flip-move'
 //内部组件
 import Header from '../component/HomePage/Header';
 import Topics from '../component/HomePage/topics';
@@ -31,6 +31,10 @@ class HomePage extends Component{
  
     render(){
         const {test,charpters}=this.state;
+        let enterAnimation = {
+            from: { transform: 'translateY(-80px)',opacity:0 },
+            to:   { transform: 'translateY(0)',opacity:1 }
+        }
         return(
             <MuiThemeProvider>
                 <div className="homepage">
@@ -39,7 +43,10 @@ class HomePage extends Component{
                     <Tabs>
                         {charpters.map((item,index)=>{
                                 return (<Tab key={index} label={item} >
-                                        <Topics topics={this.state.topics}/>
+                                    <FlipMove  enterAnimation={enterAnimation} easing='ease-out' duration='400' staggerDelayBy='40' staggerDurationBy='4'>
+                                         <Topics key={index} topics={this.state.topics.slice(4*index,4*index+4)}/>
+                                    </FlipMove>
+                                       
                                     </Tab>)
                         })}
 

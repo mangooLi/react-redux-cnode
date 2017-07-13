@@ -16,6 +16,7 @@ import Avatar from 'material-ui/Avatar';
 
 
 
+
 class Topics extends Component{
     constructor(props){
         super(props);
@@ -47,14 +48,17 @@ class Topics extends Component{
                 }
             ></ListItem>)
         });
+        
         return(
             
                 <MuiThemeProvider >
-                    <div className="topics">
-                        <List>
-                            {topicList}
-                        </List>
-                    </div>
+                    
+                        <div className="topics">
+                            <List>
+                                {topicList}
+                            </List>
+                        </div>
+                    
                 </MuiThemeProvider>
               
            
