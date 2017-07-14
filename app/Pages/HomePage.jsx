@@ -30,32 +30,42 @@ class HomePage extends Component{
             pageIndex_job:1
         }
     }
-
+    fetching=false;
+    text='this is text'
     componentDidMount(){
         this.loadMore('all');
+        
         window.onscroll = () => {
-            let {windowH,contentH,scrollT} = getSize()
-            
-            this.loadMore()
-            
+            if(!this.fetching){
+                this.loadMore(this.state.selectedTab);
+
+            }
         }
     }
-    loadMore=(tab)=>{
-        // console.log('hihi')
-        let {windowH,contentH,scrollT} = getSize();
-        tab=tab?tab:this.state.selectedTab;
-        if(windowH + scrollT + 100 > contentH){
-            this.loadData(tab)
-        }
+    componentWillUnmount(){
+        window.onscroll=null;
     }
     handleTabsChange=(value)=>{
         console.log('tabs changing',value);
-        // console.log(value)
         this.setState({selectedTab:value});
-        this.loadMore(value)
-
+        
+        if(!this.fetching){
+            this.loadMore(value)
+        }
+        
     }
+    loadMore=(tab)=>{
+        
+        let {windowH,contentH,scrollT} = getSize();
+        console.log(windowH,scrollT,contentH);
+        tab=tab?tab:this.state.selectedTab;
+        if((windowH + scrollT + 100 > contentH)||this.state['pageIndex_'+tab]===1){
+            this.loadData(tab)
+        }
+    }
+    
     loadData=(tab)=>{
+        this.fetching=true;
         console.log('loaddata',tab)
         const {dispatch} =this.props;
         switch(tab){
@@ -63,35 +73,40 @@ class HomePage extends Component{
                 let index=this.state.pageIndex_all;
                 DataService.getTopic(index,tab).then(res=>{
                     dispatch(Add_all_topics(res.data));
-                    this.setState({pageIndex_all:index+1})
+                    this.setState({pageIndex_all:index+1});
+                    this.fetching=false;
                 })
             };break;
             case 'share':{
                 let index=this.state.pageIndex_share;
                 DataService.getTopic(index,tab).then(res=>{
                     dispatch(Add_share_topics(res.data));
-                    this.setState({pageIndex_share:index+1})
+                    this.setState({pageIndex_share:index+1});
+                    this.fetching=false;
                 })
             };break;
              case 'good':{
                 let index=this.state.pageIndex_good;
                 DataService.getTopic(index,tab).then(res=>{
                     dispatch(Add_good_topics(res.data));
-                    this.setState({pageIndex_good:index+1})
+                    this.setState({pageIndex_good:index+1});
+                    this.fetching=false;
                 })
             };break; 
             case 'ask':{
                 let index=this.state.pageIndex_ask;
                 DataService.getTopic(index,tab).then(res=>{
                     dispatch(Add_ask_topics(res.data));
-                    this.setState({pageIndex_ask:index+1})
+                    this.setState({pageIndex_ask:index+1});
+                    this.fetching=false;
                 })
             };break; 
             case 'job':{
                 let index=this.state.pageIndex_job;
                 DataService.getTopic(index,tab).then(res=>{
                     dispatch(Add_job_topics(res.data));
-                    this.setState({pageIndex_ask:index+1})
+                    this.setState({pageIndex_job:index+1});
+                    this.fetching=false;
                 })
             };break;
         }
@@ -109,7 +124,6 @@ class HomePage extends Component{
             <MuiThemeProvider>
                 <div className="homepage">
                     <Header></Header>
-                    
                     <Tabs onChange={this.handleTabsChange} >
                         {charpters.map((item,index)=>{
                                 return (<Tab key={index} label={item.text} value={item.tab}>
