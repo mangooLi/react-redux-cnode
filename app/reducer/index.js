@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux';
-import todoList from './todos';
+import topics from './topics';
+
 
 
 const reducer=combineReducers({
-    todoList,
+   topics
 })
 
 export default reducer;

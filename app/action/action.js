@@ -1,30 +1,45 @@
 
 //常量
 let index=0;
-export const ADD_TODO='Add_Todo';
-export const CHANGE_TOTO_TO_DOING='Change_todo_to_doing';
-export const CHANGE_DOING_TO_DONE='Change_doing_to_done';
-// export const 
-// export const 
+export const ADD_ALL_TOPICS='ADD_ALL_TOPICS';
+export const ADD_GOOD_TOPICS='ADD_GOOD_TOPICS';
+export const ADD_SHARE_TOPICS='ADD_SHARE_TOPICS';
+export const ADD_ASK_TOPICS='ADD_ASK_TOPICS';
+export const ADD_JOB_TOPICS='ADD_JOB_TOPICS';
 
 
-export const addToDo=(text)=>{
+
+export const Add_all_topics=(topics)=>{
     return {
-        type:ADD_TODO,
-        text,
-        id:index++
+        type:ADD_ALL_TOPICS,
+        topics,
+        
     }
 }
-export const changeTodoToDoing=(id)=>{
+export const Add_good_topics=(topics)=>{
     return {
-        type:CHANGE_TOTO_TO_DOING,
-        id
+        type:ADD_GOOD_TOPICS,
+        topics,
+        
     }
 }
-
-export const changeDoingToDone=(id)=>{
+export const Add_share_topics=(topics)=>{
     return {
-        type:CHANGE_DOING_TO_DONE,
-        id
+        type:ADD_SHARE_TOPICS,
+        topics,
+        
+    }
+}
+export const Add_ask_topics=(topics)=>{
+    return {
+        type:ADD_ASK_TOPICS,
+        topics,
+        
+    }
+}
+export const Add_job_topics=(topics)=>{
+    return {
+        type:ADD_JOB_TOPICS,
+        topics,
     }
 }

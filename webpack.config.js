@@ -34,6 +34,12 @@ module.exports = {
                     'less-loader',
                 ],
             },
+            {
+                test: /\.scss$/,
+                // exclude: [nodeModulesPath]用来排除不处理的目录
+                exclude: path.resolve(__dirname, 'src/styles'),
+                loader: 'style!css?modules!postcss!sass'
+            },
         ],
     },
     plugins: [
@@ -44,7 +50,7 @@ module.exports = {
     devServer: {
         compress: true, // 启用gzip压缩
         contentBase: path.join(__dirname, 'app'),
-        port: 3003, // 运行端口3000
+        port: 3000, // 运行端口3000
         inline: true,
         hot: true,
         historyApiFallback: true,

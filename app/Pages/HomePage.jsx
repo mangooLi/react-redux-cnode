@@ -11,23 +11,91 @@ import Header from '../component/HomePage/Header';
 import Topics from '../component/HomePage/topics';
 import DataService from '../service/dataService.js'
 import './homePage.less';
+
+import {Add_all_topics,Add_good_topics,Add_share_topics,Add_ask_topics,Add_job_topics} from '../action/action.js'
+import getSize from '../service/util.js';
 class HomePage extends Component{
     constructor(){
         super();
         this.state={
-            charpters:['全部','精华','分享','问答','招聘'],
+            // charpters:['全部','精华','分享','问答','招聘'],
+            charpters:[{text:'全部',tab:'all'},{text:'精华',tab:'good'},{text:'分享',tab:'share'},{text:'问答',tab:'ask'},{text:'招聘',tab:'job'}],
             test:0,
-            topics:[]
+            topics:[],
+            selectedTab:'all',
+            pageIndex_all:1,
+            pageIndex_good:1,
+            pageIndex_share:1,
+            pageIndex_ask:1,
+            pageIndex_job:1
         }
     }
 
     componentDidMount(){
-        DataService.getTopic(1,'',20,true).then(res=>{
-            console.log(res);
-            this.setState({topics:res.data})
-        })
+        this.loadMore('all');
+        window.onscroll = () => {
+            let {windowH,contentH,scrollT} = getSize()
+            
+            this.loadMore()
+            
+        }
     }
-   
+    loadMore=(tab)=>{
+        // console.log('hihi')
+        let {windowH,contentH,scrollT} = getSize();
+        tab=tab?tab:this.state.selectedTab;
+        if(windowH + scrollT + 100 > contentH){
+            this.loadData(tab)
+        }
+    }
+    handleTabsChange=(value)=>{
+        console.log('tabs changing',value);
+        // console.log(value)
+        this.setState({selectedTab:value});
+        this.loadMore(value)
+
+    }
+    loadData=(tab)=>{
+        console.log('loaddata',tab)
+        const {dispatch} =this.props;
+        switch(tab){
+            case 'all':{
+                let index=this.state.pageIndex_all;
+                DataService.getTopic(index,tab).then(res=>{
+                    dispatch(Add_all_topics(res.data));
+                    this.setState({pageIndex_all:index+1})
+                })
+            };break;
+            case 'share':{
+                let index=this.state.pageIndex_share;
+                DataService.getTopic(index,tab).then(res=>{
+                    dispatch(Add_share_topics(res.data));
+                    this.setState({pageIndex_share:index+1})
+                })
+            };break;
+             case 'good':{
+                let index=this.state.pageIndex_good;
+                DataService.getTopic(index,tab).then(res=>{
+                    dispatch(Add_good_topics(res.data));
+                    this.setState({pageIndex_good:index+1})
+                })
+            };break; 
+            case 'ask':{
+                let index=this.state.pageIndex_ask;
+                DataService.getTopic(index,tab).then(res=>{
+                    dispatch(Add_ask_topics(res.data));
+                    this.setState({pageIndex_ask:index+1})
+                })
+            };break; 
+            case 'job':{
+                let index=this.state.pageIndex_job;
+                DataService.getTopic(index,tab).then(res=>{
+                    dispatch(Add_job_topics(res.data));
+                    this.setState({pageIndex_ask:index+1})
+                })
+            };break;
+        }
+    }
  
     render(){
         const {test,charpters}=this.state;
@@ -35,16 +103,18 @@ class HomePage extends Component{
             from: { transform: 'translateY(-80px)',opacity:0 },
             to:   { transform: 'translateY(0)',opacity:1 }
         }
+        const {topics}=this.props;
         return(
+            
             <MuiThemeProvider>
                 <div className="homepage">
                     <Header></Header>
                     
-                    <Tabs>
+                    <Tabs onChange={this.handleTabsChange} >
                         {charpters.map((item,index)=>{
-                                return (<Tab key={index} label={item} >
+                                return (<Tab key={index} label={item.text} value={item.tab}>
                                     <FlipMove  enterAnimation={enterAnimation} easing='ease-out' duration='400' staggerDelayBy='40' staggerDurationBy='4'>
-                                         <Topics key={index} topics={this.state.topics.slice(4*index,4*index+4)}/>
+                                         <Topics key={index} topics={topics[item.tab]} tab={item.tab} />
                                     </FlipMove>
                                        
                                     </Tab>)
@@ -58,7 +128,8 @@ class HomePage extends Component{
     }
 }
 const mapStateToProps=(state)=>{
-   
-    return {todoList:state.todoList}
+    const {topics}=state;
+
+    return {topics}
 }
 export default connect(mapStateToProps)(HomePage);
