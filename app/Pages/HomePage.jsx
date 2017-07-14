@@ -57,7 +57,7 @@ class HomePage extends Component{
     loadMore=(tab)=>{
         
         let {windowH,contentH,scrollT} = getSize();
-        console.log(windowH,scrollT,contentH);
+        // console.log(windowH,scrollT,contentH);
         tab=tab?tab:this.state.selectedTab;
         if((windowH + scrollT + 100 > contentH)||this.state['pageIndex_'+tab]===1){
             this.loadData(tab)

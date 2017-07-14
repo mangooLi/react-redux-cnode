@@ -19,6 +19,15 @@ const DataService={
             })
         })
         
+    },
+    getArticle(id){
+        return new Promise((resolve,reject)=>{
+            fetch(RouteService.getArticle(id)).then(res=>{
+                resolve(res.json())
+            }).catch(err=>{
+                reject(err)
+            })
+        })
     }
 }
 

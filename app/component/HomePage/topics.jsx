@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+
 //ui 组件
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
@@ -42,8 +43,9 @@ class Topics extends Component{
         }
         const tabChn ={all:'全部',good:'精华',share:'分享',ask:'问答',job:'招聘'}
         const topicList= _topics.map((topic,index)=>{
-            return (<ListItem
-                key={topic.id}
+            return ( <Link key={topic.id} to={`/topic/${topic.id}`}>
+            <ListItem
+                
                 leftAvatar={<Avatar src={topic.author.avatar_url}/>}
                 primaryText={
                     <div className='text'>
@@ -59,7 +61,7 @@ class Topics extends Component{
                         <span style={{float:'right'}}>{topic.create_at}</span>
                     </div>
                 }
-            ></ListItem>)
+            ></ListItem></Link>)
         });
         
         return(
