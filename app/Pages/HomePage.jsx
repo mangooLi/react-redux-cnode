@@ -10,7 +10,7 @@ import FlipMove from 'react-flip-move'
 import Header from '../component/HomePage/Header';
 import Topics from '../component/HomePage/topics';
 import DataService from '../service/dataService.js'
-import './homePage.less';
+import './Page.less';
 
 import {Add_all_topics,Add_good_topics,Add_share_topics,Add_ask_topics,Add_job_topics} from '../action/action.js'
 import getSize from '../service/util.js';
