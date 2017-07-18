@@ -4,6 +4,7 @@ import {
     ADD_SHARE_TOPICS,
     ADD_ASK_TOPICS,
     ADD_JOB_TOPICS,
+    SWITCH_SHOW
 } from '../action/action.js'
 
 
@@ -12,19 +13,22 @@ const initTopics={
     good:[],
     share:[],
     ask:[],
-    job:[]
+    job:[],
+    show:'all'
 }
 
 const topics=(state=initTopics,action)=>{
     // console.log('reducing working');
     switch(action.type){
         case ADD_ALL_TOPICS:{
+            console.log('all is changing');
             return {
                 all:[...state.all,...action.topics],
                 good:state.good,
                 share:state.share,
                 ask:state.ask,
-                job:state.job
+                job:state.job,
+                show:state.show
             }
         };break;
         case ADD_GOOD_TOPICS:{
@@ -33,16 +37,18 @@ const topics=(state=initTopics,action)=>{
                 good:[...state.good,...action.topics],
                 share:state.share,
                 ask:state.ask,
-                job:state.job
+                job:state.job,
+                show:state.show
             }
         };break;
         case ADD_SHARE_TOPICS:{
             return {
-                all:state.good,
+                all:state.all,
                 good:state.good,
                 share:[...state.share,...action.topics],
                 ask:state.ask,
-                job:state.job
+                job:state.job,
+                show:state.show
             }
         };break;
         case ADD_ASK_TOPICS:{
@@ -51,7 +57,8 @@ const topics=(state=initTopics,action)=>{
                 good:state.good,
                 share:state.share,
                 ask:[...state.ask,...action.topics],
-                job:state.job
+                job:state.job,
+                show:state.show
             }
         };break;
         case ADD_JOB_TOPICS:{
@@ -60,10 +67,20 @@ const topics=(state=initTopics,action)=>{
                 good:state.good,
                 share:state.share,
                 ask:state.ask,
-                job:[...state.job,...action.topics]
+                job:[...state.job,...action.topics],
+                show:state.show
             }
         };break;
-
+        case SWITCH_SHOW:{
+            return{
+                all:state.all,
+                good:state.good,
+                share:state.share,
+                ask:state.ask,
+                job:state.job,
+                show:action.show
+            }
+        }
         default:{
             return state;
         }

@@ -28,6 +28,34 @@ const DataService={
                 reject(err)
             })
         })
+    },
+    //登陆
+    login(token){
+        let url=RouteService.login();
+        return new Promise((resolve,reject)=>{
+            fetch(url,{
+                method:'POST',
+                 headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `accesstoken=${token}`
+                
+            }).then(res=>{
+                resolve(res.json());
+            }).catch(err=>{
+                reject(err)
+            })
+        })
+    },
+    getCollectedTopics(username){
+        let url=RouteService.getCollectedTopics(username);
+        return new Promise((resolve,reject)=>{
+            fetch(url).then(res=>{
+                resolve(res.json())
+            }).catch(err=>{
+                reject(err)
+            })
+        })
     }
 }
 

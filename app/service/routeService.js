@@ -10,6 +10,12 @@ const RouteService={
     },
     getArticle(id){
         return baseUrl+`topic/${id}`
+    },
+    login(){
+        return baseUrl+`accesstoken`;
+    },
+    getCollectedTopics(username){
+        return baseUrl+`topic_collect/${username}`
     }
 
 }

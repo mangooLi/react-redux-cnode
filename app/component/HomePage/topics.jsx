@@ -20,9 +20,9 @@ import './topic.less'
 
 
 class Topics extends Component{
-    constructor(props){
+    constructor(){
         
-        super(props);
+        super();
         
       
     }
@@ -32,17 +32,11 @@ class Topics extends Component{
    
  
     render(){
-        const {topics,tab} =this.props;
-        let _topics;
-        //筛选
-        switch(tab){
-            case 'all':_topics=topics;break;
-            case 'good':_topics=topics.filter(item=>{return item.good});break;
-            default:_topics=topics.filter(item=>{return item.tab==tab});break;
-           
-        }
+        const {topics,show} =this.props;
+        
+       
         const tabChn ={all:'全部',good:'精华',share:'分享',ask:'问答',job:'招聘'}
-        const topicList= _topics.map((topic,index)=>{
+        const topicList= topics[show].map((topic,index)=>{
             return ( <Link key={topic.id} to={`/topic/${topic.id}`}>
             <ListItem
                 
@@ -57,7 +51,7 @@ class Topics extends Component{
                 secondaryText={
                     <div className='text'>
                         <span>{topic.reply_count+'/'+topic.visit_count}</span>
-                        <span>{tabChn[topic.tab]}</span>
+                        <span>{tabChn[show]}</span>
                         <span style={{float:'right'}}>{topic.create_at}</span>
                     </div>
                 }
@@ -83,4 +77,10 @@ class Topics extends Component{
     }
 }
 
-export default connect()(Topics);
+const mapStateToProps=(state)=>{
+    const {topics}=state;
+    const {show}=topics;
+    return {topics,show}
+}
+
+export default connect(mapStateToProps)(Topics);

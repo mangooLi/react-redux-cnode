@@ -30,7 +30,7 @@ class Header extends Component{
             
                 <MuiThemeProvider >
                     <div className="appbar">
-                        <AppBar title = {<span>react-cnode</span>} iconElementRight={
+                        <AppBar title = {<span>react-cnode</span>} onLeftIconButtonTouchTap={this.props.toggleDrawer} iconElementRight={
                             <div style={{marginTop:-8}}>
                                 <Badge badgeContent={8} secondary={true} >
                                     <IconButton tooltip="未读消息">
@@ -51,4 +51,4 @@ class Header extends Component{
     }
 }
 
-export default connect()(Header);
+export default Header
