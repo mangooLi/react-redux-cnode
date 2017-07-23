@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, IndexRoute, hashHistory, Router } from 'react-router';
+import { Route, IndexRoute, browserHistory, Router } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux'
 import App from './app';
@@ -14,7 +14,7 @@ import './main.less';
 const store = createStore(reducer)
 ReactDOM.render(
     <Provider store={store}>
-        <Router routes={routes} history={hashHistory}/>
+        <Router routes={routes} history={browserHistory}/>
     </Provider>,
     document.getElementById('root')
 );

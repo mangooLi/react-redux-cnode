@@ -10,10 +10,15 @@ import {
 
 const initTopics={
     all:[],
+    all_index:0,
     good:[],
+    good_index:0,
     share:[],
+    share_index:0,
     ask:[],
+    ask_index:0,
     job:[],
+    job_index:0,
     show:'all'
 }
 
@@ -21,65 +26,40 @@ const topics=(state=initTopics,action)=>{
     // console.log('reducing working');
     switch(action.type){
         case ADD_ALL_TOPICS:{
-            console.log('all is changing');
-            return {
+            return Object.assign({},state,{
                 all:[...state.all,...action.topics],
-                good:state.good,
-                share:state.share,
-                ask:state.ask,
-                job:state.job,
-                show:state.show
-            }
+                all_index:state.all_index+1
+            })
+
         };break;
         case ADD_GOOD_TOPICS:{
-            return {
-                all:state.all,
+            return Object.assign({},state,{
                 good:[...state.good,...action.topics],
-                share:state.share,
-                ask:state.ask,
-                job:state.job,
-                show:state.show
-            }
+                good_index:state.good_index+1
+            })
         };break;
         case ADD_SHARE_TOPICS:{
-            return {
-                all:state.all,
-                good:state.good,
+            return Object.assign({},state,{
                 share:[...state.share,...action.topics],
-                ask:state.ask,
-                job:state.job,
-                show:state.show
-            }
+                share_index:state.share_index+1
+            })
         };break;
         case ADD_ASK_TOPICS:{
-            return {
-                all:state.all,
-                good:state.good,
-                share:state.share,
+           return Object.assign({},state,{
                 ask:[...state.ask,...action.topics],
-                job:state.job,
-                show:state.show
-            }
+                ask_index:state.ask_index+1
+            })
         };break;
         case ADD_JOB_TOPICS:{
-            return {
-                all:state.all,
-                good:state.good,
-                share:state.share,
-                ask:state.ask,
+            return Object.assign({},state,{
                 job:[...state.job,...action.topics],
-                show:state.show
-            }
+                job_index:state.job_index+1
+            })
         };break;
         case SWITCH_SHOW:{
-            return{
-                all:state.all,
-                good:state.good,
-                share:state.share,
-                ask:state.ask,
-                job:state.job,
-                show:action.show
-            }
+            return Object.assign({},state,{
+              show:action.show
+            })
         }
         default:{
             return state;

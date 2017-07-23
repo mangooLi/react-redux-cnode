@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router'
 //ui组件
 import {Tabs, Tab} from 'material-ui/Tabs';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -9,7 +10,8 @@ import FlipMove from 'react-flip-move'
 //内部组件
 import Header from '../component/HomePage/Header';
 import Topics from '../component/HomePage/topics';
-import DataService from '../service/dataService.js'
+import DataService from '../service/dataService.js';
+import ComHeader from '../component/comComponent/ComHeader'
 import './demo.less';
 
 import {Get_article} from '../action/action.js'
@@ -28,6 +30,9 @@ class ArticlePage extends Component{
             
         })
     }
+    back=()=>{
+        browserHistory.push('/home')
+    }
  
     render(){
         const {article} =this.props;
@@ -37,6 +42,7 @@ class ArticlePage extends Component{
             <MuiThemeProvider>
                 
                 <div className="article">
+                    <ComHeader title='详情' back={this.back}></ComHeader>
                     <h3>{article.title}</h3>
                     <div dangerouslySetInnerHTML={{__html:article.content}}></div>
                 </div>

@@ -23,18 +23,14 @@ class HomePage extends Component{
             charpters:[{text:'全部',tab:'all'},{text:'精华',tab:'good'},{text:'分享',tab:'share'},{text:'问答',tab:'ask'},{text:'招聘',tab:'job'}],
             test:0,
             topics:[],
-            pageIndex_all:1,
-            pageIndex_good:1,
-            pageIndex_share:1,
-            pageIndex_ask:1,
-            pageIndex_job:1,
+           
             openDrawer:false
         }
     }
     selectedTab='all';
     fetching=false;
     componentDidMount(){
-        this.loadMore('all',1);
+        this.loadMore('all')
         window.onscroll = () => {
             if(!this.fetching){
                 this.loadMore(this.selectedTab);
@@ -44,6 +40,7 @@ class HomePage extends Component{
     }
     componentWillUnmount(){
         window.onscroll=null;
+        // console.log('destroyed')
     }
     handleTabsChange=(value)=>{
         
@@ -59,11 +56,11 @@ class HomePage extends Component{
     }
     loadMore=(tab,index)=>{
        
-
+     
         let {windowH,contentH,scrollT} = getSize();
         
         
-        if((windowH + scrollT + 100 > contentH)||this.state['pageIndex_'+tab]===1){
+        if((windowH + scrollT + 100 > contentH)||this.props[tab+'_index']===0){
             this.loadData(tab)
         }
     }
@@ -71,56 +68,49 @@ class HomePage extends Component{
     loadData=(tab)=>{
         this.fetching=true;
         
-        const {dispatch} =this.props;
+        const {dispatch,topics,all_index,share_index,ask_index,good_index,job_index} =this.props;
+        
         switch(tab){
             case 'all':{
-                let index=this.state.pageIndex_all;
-                DataService.getTopic(index,tab).then(res=>{
+                
+                DataService.getTopic(all_index+1,tab).then(res=>{
                     dispatch(Add_all_topics(res.data));
-                    this.setState({pageIndex_all:index+1},()=>{
-                        this.fetching=false;
-                    });
+                    
+                    this.fetching=false;
+                   
                     
                 })
             };break;
             case 'share':{
-                let index=this.state.pageIndex_share;
-                DataService.getTopic(index,tab).then(res=>{
+               
+                DataService.getTopic(share_index+1,tab).then(res=>{
                     dispatch(Add_share_topics(res.data));
-                    this.setState({pageIndex_share:index+1},()=>{
-                        this.fetching=false;
-                    });
                     
+                    this.fetching=false;
                 })
             };break;
              case 'good':{
-                let index=this.state.pageIndex_good;
-                DataService.getTopic(index,tab).then(res=>{
+                
+                DataService.getTopic(good_index+1,tab).then(res=>{
                     dispatch(Add_good_topics(res.data));
-                    this.setState({pageIndex_good:index+1},()=>{
-                        this.fetching=false;
-                    });
                     
+                    this.fetching=false;
                 })
             };break; 
             case 'ask':{
-                let index=this.state.pageIndex_ask;
-                DataService.getTopic(index,tab).then(res=>{
+                
+                DataService.getTopic(ask_index+1,tab).then(res=>{
                     dispatch(Add_ask_topics(res.data));
-                    this.setState({pageIndex_ask:index+1},()=>{
-                        this.fetching=false;
-                    });
                     
+                    this.fetching=false;
                 })
             };break; 
             case 'job':{
-                let index=this.state.pageIndex_job;
-                DataService.getTopic(index,tab).then(res=>{
+                
+                DataService.getTopic(job_index+1,tab).then(res=>{
                     dispatch(Add_job_topics(res.data));
-                    this.setState({pageIndex_job:index+1},()=>{
-                        this.fetching=false;
-                    });
                     
+                    this.fetching=false;
                 })
             };break;
             default:break;
@@ -164,7 +154,7 @@ class HomePage extends Component{
 }
 const mapStateToProps=(state)=>{
     const {topics,login}=state;
-
-    return {topics,login}
+    const {all_index,share_index,ask_index,good_index,job_index}=topics;
+    return {topics,login,all_index,share_index,ask_index,good_index,job_index}
 }
 export default connect(mapStateToProps)(HomePage);
