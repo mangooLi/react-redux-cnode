@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SwipeableViews from 'react-swipeable-views';
 //自定义组件
 import DataService from '../service/dataService.js';
+import ComHeader from '../component/comComponent/ComHeader'
 import {Add_hasRead_message,Add_unRead_message} from '../action/action.js'
 
 class MessagePage extends Component{
@@ -35,10 +36,15 @@ class MessagePage extends Component{
     render(){
         return (<div>
             <MuiThemeProvider>
-                <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
-                    <Tab label={<h2>未读消息</h2>} value={0}></Tab>
-                    <Tab label={<h2>已读消息</h2>} value={1}></Tab>
-                </Tabs>
+                <div className='message'>
+                    <ComHeader title='消息'></ComHeader>
+                    <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
+                    
+                        <Tab label={<h2>未读消息</h2>} value={0}></Tab>
+                        <Tab label={<h2>已读消息</h2>} value={1}></Tab>
+                    </Tabs>
+                </div>
+                
             </MuiThemeProvider>
             <SwipeableViews index={this.state.slideIndex} >
                 <div>暂无未读消息</div>

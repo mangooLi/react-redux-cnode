@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router'
+
 //ui组件
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -56,9 +56,6 @@ class LoginPage extends Component{
 
 
     }
-    back=()=>{
-        browserHistory.push('/home')
-    }
     succedPanel=()=>{
         const {collected_topics} =this.props;
         return (<div>
@@ -92,7 +89,7 @@ class LoginPage extends Component{
             <MuiThemeProvider>
                
                 <div className="article">
-                    <ComHeader title='登陆' back={this.back}></ComHeader>
+                    <ComHeader title='登陆'></ComHeader>
                     {/* <p>9d886899-e5bd-42d5-a6d8-1f64631a1df2</p> */}
                     {!succed && this.unSuccedPanel()}
                     {succed && this.succedPanel()}

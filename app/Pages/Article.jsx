@@ -30,9 +30,7 @@ class ArticlePage extends Component{
             
         })
     }
-    back=()=>{
-        browserHistory.push('/home')
-    }
+    
  
     render(){
         const {article} =this.props;
@@ -42,7 +40,7 @@ class ArticlePage extends Component{
             <MuiThemeProvider>
                 
                 <div className="article">
-                    <ComHeader title='详情' back={this.back}></ComHeader>
+                    <ComHeader title='详情'></ComHeader>
                     <h3>{article.title}</h3>
                     <div dangerouslySetInnerHTML={{__html:article.content}}></div>
                 </div>
