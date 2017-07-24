@@ -56,6 +56,14 @@ const DataService={
                 reject(err)
             })
         })
+    },
+    getMessage(token){
+        let url=RouteService.getMessage('9d886899-e5bd-42d5-a6d8-1f64631a1df2');
+        return new Promise((resolve,reject)=>{
+            fetch(url).then(res=>{
+                resolve(res.json())
+            }).catch(err=>{reject(err)});
+        })
     }
 }
 

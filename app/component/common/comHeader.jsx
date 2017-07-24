@@ -17,7 +17,7 @@ import './header.less';
 
 
 
-class Header extends Component{
+class ComHeader extends Component{
     constructor(props){
         super(props);
         
@@ -26,6 +26,7 @@ class Header extends Component{
    
  
     render(){
+        const 
         return(
             
                 <MuiThemeProvider >
@@ -51,4 +52,4 @@ class Header extends Component{
     }
 }
 
-export default Header
+export default ComHeader

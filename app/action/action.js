@@ -14,6 +14,10 @@ export const GET_ARTICLE ='GET_ARTICLE';
 export const LOGIN_SUCCED='LOGIN_SUCCED';
 export const COLLECTED_TOPICS='COLLECTED_TOPICS';
 
+//message
+export const ADD_HASREAD_MESSAGE='ADD_HASREAD_MESSAGE';
+export const ADD_UNREAD_MESSAGE='ADD_UNREAD_MESSAGE';
+
 //topics
 export const Add_all_topics=(topics)=>{
     return {
@@ -63,14 +67,29 @@ export const Get_article=(article)=>{
     }
 }
 //login
-export const Login=()=>{
+export const Login=(token)=>{
     return {
-        type:LOGIN_SUCCED
+        type:LOGIN_SUCCED,
+        token
     }
 }
 export const Get_collected_topics=(collected_topics)=>{
     return {
         type:COLLECTED_TOPICS,
         collected_topics
+    }
+}
+
+//message
+export  const Add_hasRead_message=(hasRead_Message)=>{
+    return {
+        type:ADD_HASREAD_MESSAGE,
+        list:hasRead_Message
+    }
+}
+export const Add_unRead_message=(unRead_Message)=>{
+    return {
+        type:ADD_UNREAD_MESSAGE,
+        list:unRead_Message
     }
 }

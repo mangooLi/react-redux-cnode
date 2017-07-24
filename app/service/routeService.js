@@ -16,6 +16,9 @@ const RouteService={
     },
     getCollectedTopics(username){
         return baseUrl+`topic_collect/${username}`
+    },
+    getMessage(token){
+        return baseUrl+`messages?accesstoken=${token}&mdrender=true`
     }
 
 }

@@ -21,6 +21,7 @@
     "react-flip-move": "^2.9.14",
     "react-redux": "^5.0.4",
     "react-router": "^2.8.1",
+    "react-swipeable-views": "^0.12.4",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",

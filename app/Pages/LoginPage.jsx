@@ -40,9 +40,10 @@ class LoginPage extends Component{
         let token=this.refs.input.input.value;
         DataService.login(token).then(res=>{
             if(res.success){
-                dispatch(Login());
+                dispatch(Login(token));
                 DataService.getCollectedTopics(res.loginname).then(resp=>{
                     if(resp.success){
+                        console.log(resp)
                         dispatch(Get_collected_topics(resp.data))
                     }
                 })
@@ -102,7 +103,7 @@ const TopicList=props=>{
     return (<div>
         {collected_topics&&collected_topics.length === 0 && <ListItem primaryText="还没有相关话题" />}
         {collected_topics.map(item=>{
-            return (<ListItem id={item.id} primaryText={item.title} leftAvatar={<Avatar src={item.author.avatar_url} />}/>)
+            return (<ListItem key={item.id} primaryText={item.title} leftAvatar={<Avatar src={item.author.avatar_url} />}/>)
         })}
     </div>)
 }
